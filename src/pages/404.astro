@@ -1,0 +1,21 @@
+---
+import MainHead from "@/components/MainHead.astro";
+import Footer from "@/components/Footer/index.jsx";
+import Nav from "@/components/Nav/index.jsx";
+---
+
+<html lang="en">
+	<head>
+		<MainHead title="Not Found" />
+	</head>
+	<body>
+		<Nav />
+		<div class="container mx-auto px-4 h-64 w-full">
+			<div class="flex items-center justify-center flex-col w-full h-full">
+				<h1 class="text-4xl lg:text-5xl text-black font-bold text-center mb-8">Oops! Page Not Found</h1>
+				<a href="/" class="bg-blue-400 px-4 py-2 font-bold text-base text-white rounded shadow-lg">Go to home</a>
+			</div>
+		</div>
+		<Footer />
+	</body>
+</html>
