@@ -23,7 +23,7 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        run: yarn install ci
+        run: yarn install
 
       - name: Build Astro
         run: yarn build
