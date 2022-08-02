@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@astrojs/tailwind": "^0.2.4",
+    "daisyui": "^2.20.0",
     "preact": "^10.7.3"
   }
 }
