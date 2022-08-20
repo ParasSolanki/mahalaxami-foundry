@@ -1,33 +1,34 @@
 import { h } from 'preact'
 import { useState } from 'preact/hooks'
 import logo from '@/assets/logo.svg'
+import { BASE_URL } from '@/constants'
 
 const links = [
   {
     name: 'Home',
-    href: '/',
+    href: BASE_URL,
   },
   {
     name: 'About us',
-    href: '/about-us',
+    href: `${BASE_URL}/about-us`,
   },
   {
     name: 'Products',
     childern: [
-      { name: 'Pillar / Driling Machine Column', href: '/pillar' },
+      { name: 'Pillar / Driling Machine Column', href: `${BASE_URL}/pillar` },
       {
         name: 'Coupling / Rolling Mill Coupling Machine Column',
-        href: '/coupling',
+        href: `${BASE_URL}/coupling`,
       },
     ],
   },
   {
     name: 'Contact',
-    href: '/contact',
+    href: `${BASE_URL}/contact`,
   },
   {
     name: 'Enquiry',
-    href: '/enquiry',
+    href: `${BASE_URL}/enquiry`,
   },
 ]
 

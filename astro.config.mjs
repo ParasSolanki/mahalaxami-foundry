@@ -6,4 +6,5 @@ import tailwind from '@astrojs/tailwind'
 export default defineConfig({
   integrations: [preact(), tailwind()],
   site: 'https://parassolanki.github.io',
+  base: '/mahalaxami-foundry',
 })
