@@ -190,7 +190,7 @@ function Nav() {
                 ) : (
                   <li>
                     <a
-                      className="rounded text-base font-medium text-gray-700 hover:bg-gray-50  hover:text-sky-400 focus:text-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-white"
+                      className="rounded text-base font-medium text-gray-700 hover:text-sky-400 focus:text-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-white"
                       href={link.href}
                       title={link.name}
                     >
