@@ -1,34 +1,33 @@
 import { h } from 'preact'
 import { useState } from 'preact/hooks'
 import logo from '@/assets/logo.svg'
-import { BASE_URL } from '@/constants'
 
 const links = [
   {
     name: 'Home',
-    href: BASE_URL,
+    href: '/',
   },
   {
     name: 'About us',
-    href: `${BASE_URL}/about-us`,
+    href: '/about-us',
   },
   {
     name: 'Products',
     childern: [
-      { name: 'Pillar / Driling Machine Column', href: `${BASE_URL}/pillar` },
+      { name: 'Pillar / Driling Machine Column', href: '/pillar' },
       {
         name: 'Coupling / Rolling Mill Coupling Machine Column',
-        href: `${BASE_URL}/coupling`,
+        href: '/coupling',
       },
     ],
   },
   {
     name: 'Contact',
-    href: `${BASE_URL}/contact`,
+    href: '/contact',
   },
   {
     name: 'Enquiry',
-    href: `${BASE_URL}/enquiry`,
+    href: '/enquiry',
   },
 ]
 
@@ -105,8 +104,17 @@ function MobileNav() {
         </svg>
       </button>
       {mobileMenuOpen && (
-        <div class="fixed inset-x-0 top-0 z-50 h-full w-full origin-top-right transform bg-black/50 p-2 backdrop-blur-sm transition md:hidden">
-          <div class="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
+        <div
+          class="fixed inset-x-0 top-0 z-50 h-full w-full origin-top-right transform bg-black/50 p-2 backdrop-blur-sm transition"
+          onClick={() => {
+            document.body.classList.remove('overflow-hidden')
+            setMobileMenuOpen(false)
+          }}
+        >
+          <div
+            class="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div class="flex items-center justify-between px-5 pt-4">
               <a
                 href="/"
@@ -166,41 +174,43 @@ function MobileNav() {
 
 function Nav() {
   return (
-    <header className="navbar h-24">
-      <div className="container mx-auto ">
-        <div className="navbar-start">
-          <a
-            href="/"
-            className="rounded focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-white"
-          >
-            <div className="w-36">
-              <img src={logo} alt="logo" className="h-full w-full" />
-            </div>
-          </a>
-        </div>
-        <div className="navbar-end flex justify-end">
-          <div className="block md:hidden">
-            <MobileNav />
+    <header className="flex h-24 w-full  items-center">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between">
+          <div className="">
+            <a
+              href="/"
+              className="rounded focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-white"
+            >
+              <div className="w-36">
+                <img src={logo} alt="logo" className="h-full w-full" />
+              </div>
+            </a>
           </div>
-          <nav className="hidden md:block">
-            <ul className="hidden items-center space-x-6 md:flex">
-              {links.map((link) => {
-                return link?.childern ? (
-                  <LinkWithDropdown link={link} />
-                ) : (
-                  <li>
-                    <a
-                      className="rounded text-base font-medium text-gray-700 hover:text-sky-400 focus:text-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-white"
-                      href={link.href}
-                      title={link.name}
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </nav>
+          <div className="flex justify-end">
+            <div className="block md:hidden">
+              <MobileNav />
+            </div>
+            <nav className="hidden md:block">
+              <ul className="hidden items-center space-x-6 md:flex">
+                {links.map((link) => {
+                  return link?.childern ? (
+                    <LinkWithDropdown link={link} />
+                  ) : (
+                    <li>
+                      <a
+                        className="rounded text-base font-medium text-gray-700 hover:text-sky-400 focus:text-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-white"
+                        href={link.href}
+                        title={link.name}
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
     </header>
