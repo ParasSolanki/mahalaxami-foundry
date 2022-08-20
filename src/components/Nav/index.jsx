@@ -1,4 +1,5 @@
 import { h } from 'preact'
+import { useState } from 'preact/hooks'
 import logo from '@/assets/logo.svg'
 import { BASE_URL } from '@/constants'
 
@@ -48,7 +49,7 @@ const LinkWithDropdown = ({ link }) => (
   <li className="dropdown">
     <label
       tabindex="0"
-      className="inline-flex items-center text-base text-slate-600 cursor-pointer hover:text-sky-400 focus:text-sky-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-sky-400 rounded"
+      className="inline-flex cursor-pointer items-center rounded text-base text-slate-600 hover:text-sky-400 focus:text-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-white"
     >
       {link.name}
       <span className="ml-1.5">
@@ -57,7 +58,7 @@ const LinkWithDropdown = ({ link }) => (
     </label>
     <ul
       tabindex="0"
-      className="dropdown-content menu p-2 shadow w-64 bg-white mt-5 rounded-md"
+      className="dropdown-content menu mt-5 w-64 rounded-md bg-white p-2 shadow"
     >
       {link.childern.map((linkItem) => (
         <li>
@@ -74,28 +75,122 @@ const LinkWithDropdown = ({ link }) => (
   </li>
 )
 
+function MobileNav() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500"
+        onClick={() => {
+          document.body.classList.add('overflow-hidden')
+          setMobileMenuOpen(true)
+        }}
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M4 6h16M4 12h16m-7 6h7"
+          />
+        </svg>
+      </button>
+      {mobileMenuOpen && (
+        <div class="fixed inset-x-0 top-0 z-50 h-full w-full origin-top-right transform bg-black/50 p-2 backdrop-blur-sm transition md:hidden">
+          <div class="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
+            <div class="flex items-center justify-between px-5 pt-4">
+              <a
+                href="/"
+                className="rounded focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-white"
+              >
+                <div className="w-36">
+                  <img src={logo} alt="logo" className="h-full w-full" />
+                </div>
+              </a>
+              <div class="-mr-2">
+                <button
+                  type="button"
+                  class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500"
+                  onClick={() => {
+                    document.body.classList.remove('overflow-hidden')
+                    setMobileMenuOpen(false)
+                  }}
+                >
+                  <span class="sr-only">Close main menu</span>
+
+                  <svg
+                    class="h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <ul class="space-y-1 px-2 pt-2 pb-3">
+              {links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function Nav() {
   return (
-    <header className="h-24">
-      <div className="container  py-5 mx-auto px-4">
-        <div className="flex justify-between items-center">
+    <header className="navbar h-24">
+      <div className="container mx-auto ">
+        <div className="navbar-start">
           <a
             href="/"
-            className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-black rounded"
+            className="rounded focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-white"
           >
             <div className="w-36">
-              <img src={logo} alt="logo" className="w-full h-full" />
+              <img src={logo} alt="logo" className="h-full w-full" />
             </div>
           </a>
-          <nav>
-            <ul className="flex items-center space-x-6">
+        </div>
+        <div className="navbar-end flex justify-end">
+          <div className="block md:hidden">
+            <MobileNav />
+          </div>
+          <nav className="hidden md:block">
+            <ul className="hidden items-center space-x-6 md:flex">
               {links.map((link) => {
                 return link?.childern ? (
                   <LinkWithDropdown link={link} />
                 ) : (
                   <li>
                     <a
-                      className="text-base text-slate-600 hover:text-sky-400 focus:text-sky-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-sky-400 rounded"
+                      className="rounded text-base text-slate-600 hover:text-sky-400 focus:text-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-white"
                       href={link.href}
                       title={link.name}
                     >
