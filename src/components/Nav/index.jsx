@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import logo from '@/assets/logo.svg'
-import { Popover, Transition } from '@headlessui/react'
+import { Popover, Transition, Menu } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/24/solid'
 
 const links = [
   {
@@ -31,19 +32,6 @@ const links = [
   },
 ]
 
-const ChevronDownIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-5 w-5"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-  </svg>
-)
-
 const LinkWithDropdown = ({ link }) => (
   <li className="dropdown">
     <label
@@ -52,7 +40,7 @@ const LinkWithDropdown = ({ link }) => (
     >
       {link.name}
       <span className="ml-1.5">
-        <ChevronDownIcon />
+        <ChevronDownIcon className="h-6 w-6" aria-hidden="true" />
       </span>
     </label>
     <ul
@@ -82,7 +70,7 @@ function Nav() {
           <Popover>
             <div className="relative">
               <nav
-                className="relative flex items-center justify-between lg:justify-start"
+                className="relative flex items-center justify-between"
                 aria-label="Global"
               >
                 <div className="flex flex-shrink-0 flex-grow items-center lg:flex-grow-0">
@@ -114,10 +102,11 @@ function Nav() {
                           />
                         </svg>
                       </Popover.Button>
+                      <Popover.Overlay className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur backdrop-filter" />
                     </div>
                   </div>
                 </div>
-                <div className="hidden md:ml-10 md:block md:space-x-8 md:pr-4">
+                <ul className="hidden md:ml-10 md:flex md:space-x-8 md:pr-4">
                   {links.map((link) => {
                     return link?.childern ? (
                       <LinkWithDropdown link={link} key={link.name} />
@@ -133,7 +122,7 @@ function Nav() {
                       </li>
                     )
                   })}
-                </div>
+                </ul>
               </nav>
             </div>
 
@@ -148,7 +137,7 @@ function Nav() {
             >
               <Popover.Panel
                 focus
-                className="fixed inset-x-0 top-0 z-50 origin-top-right transform  p-2 backdrop-blur-sm transition md:hidden"
+                className="fixed inset-x-0 top-0 z-50 origin-top-right transform p-2 transition md:hidden"
               >
                 <div className="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
                   <div className="flex items-center justify-between px-5 pt-4">
@@ -187,17 +176,59 @@ function Nav() {
                       </Popover.Button>
                     </div>
                   </div>
-                  <ul className="space-y-1 px-2 pt-2 pb-3">
-                    {links.map((item) => (
-                      <li key={item.href}>
-                        <a
-                          href={item.href}
-                          className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                  <ul className="mt-4 space-y-1 px-2 pt-2 pb-3">
+                    {links.map((link) => {
+                      return link?.childern ? (
+                        <Menu
+                          value={true}
+                          as="li"
+                          className="relative block text-left"
                         >
-                          {item.name}
-                        </a>
-                      </li>
-                    ))}
+                          <div>
+                            <Menu.Button className="inline-flex w-full items-center justify-between rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900">
+                              {link.name}
+                              <ChevronDownIcon
+                                className="h-6 w-6 text-gray-500"
+                                aria-hidden="true"
+                              />
+                            </Menu.Button>
+                          </div>
+                          <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 -translate-y-4"
+                            enterTo="transform opacity-100 translate-y-0"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 translate-y-0"
+                            leaveTo="transform opacity-0 -translate-y-4"
+                          >
+                            <Menu.Items className="mt-2 w-full origin-top divide-y divide-gray-100 focus:outline-none">
+                              <div className="pl-4">
+                                {link.childern.map((item) => (
+                                  <Menu.Item>
+                                    <a
+                                      href={item.href}
+                                      className="block rounded-md px-3 py-2 text-base text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                    >
+                                      {item.name}
+                                    </a>
+                                  </Menu.Item>
+                                ))}
+                              </div>
+                            </Menu.Items>
+                          </Transition>
+                        </Menu>
+                      ) : (
+                        <li key={link.href}>
+                          <a
+                            href={link.href}
+                            className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900"
+                          >
+                            {link.name}
+                          </a>
+                        </li>
+                      )
+                    })}
                   </ul>
                 </div>
               </Popover.Panel>
