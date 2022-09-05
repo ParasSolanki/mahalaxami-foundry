@@ -180,9 +180,9 @@ function Nav() {
                     {links.map((link) => {
                       return link?.childern ? (
                         <Menu
-                          value={true}
                           as="li"
                           className="relative block text-left"
+                          key={link.href}
                         >
                           <div>
                             <Menu.Button className="inline-flex w-full items-center justify-between rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900">
@@ -205,7 +205,7 @@ function Nav() {
                             <Menu.Items className="mt-2 w-full origin-top divide-y divide-gray-100 focus:outline-none">
                               <div className="pl-4">
                                 {link.childern.map((item) => (
-                                  <Menu.Item>
+                                  <Menu.Item key={item.href}>
                                     <a
                                       href={item.href}
                                       className="block rounded-md px-3 py-2 text-base text-gray-700 hover:bg-gray-100 hover:text-gray-900"
