@@ -62,6 +62,41 @@ const LinkWithDropdown = ({ link }) => (
   </li>
 )
 
+const MobileLinkWithDropdown = ({ link }) => (
+  <Menu key={link.href} as="li" className="relative block text-left">
+    <div>
+      <Menu.Button className="inline-flex w-full items-center justify-between rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900">
+        {link.name}
+        <ChevronDownIcon className="h-6 w-6 text-gray-500" aria-hidden="true" />
+      </Menu.Button>
+    </div>
+    <Transition
+      as={Fragment}
+      enter="transition ease-out duration-100"
+      enterFrom="transform opacity-0 -translate-y-2"
+      enterTo="transform opacity-100 translate-y-0"
+      leave="transition ease-in duration-75"
+      leaveFrom="transform opacity-100 translate-y-0"
+      leaveTo="transform opacity-0 -translate-y-2"
+    >
+      <Menu.Items className="mt-2 w-full origin-top divide-y divide-gray-100 focus:outline-none">
+        <div className="pl-4">
+          {link.childern.map((item) => (
+            <Menu.Item key={item.href}>
+              <a
+                href={item.href}
+                className="block rounded-md px-3 py-2 text-base text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              >
+                {item.name}
+              </a>
+            </Menu.Item>
+          ))}
+        </div>
+      </Menu.Items>
+    </Transition>
+  </Menu>
+)
+
 function Nav() {
   return (
     <header className="relative bg-white py-6">
@@ -107,8 +142,8 @@ function Nav() {
                   </div>
                 </div>
                 <ul className="hidden md:ml-10 md:flex md:space-x-8 md:pr-4">
-                  {links.map((link) => {
-                    return link?.childern ? (
+                  {links.map((link) =>
+                    link?.childern ? (
                       <LinkWithDropdown link={link} key={link.name} />
                     ) : (
                       <li key={link.name}>
@@ -121,7 +156,7 @@ function Nav() {
                         </a>
                       </li>
                     )
-                  })}
+                  )}
                 </ul>
               </nav>
             </div>
@@ -177,49 +212,11 @@ function Nav() {
                     </div>
                   </div>
                   <ul className="mt-4 space-y-1 px-2 pt-2 pb-3">
-                    {links.map((link) => {
-                      return link?.childern ? (
-                        <Menu
-                          as="li"
-                          className="relative block text-left"
-                          key={link.href}
-                        >
-                          <div>
-                            <Menu.Button className="inline-flex w-full items-center justify-between rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900">
-                              {link.name}
-                              <ChevronDownIcon
-                                className="h-6 w-6 text-gray-500"
-                                aria-hidden="true"
-                              />
-                            </Menu.Button>
-                          </div>
-                          <Transition
-                            as={Fragment}
-                            enter="transition ease-out duration-100"
-                            enterFrom="transform opacity-0 -translate-y-4"
-                            enterTo="transform opacity-100 translate-y-0"
-                            leave="transition ease-in duration-75"
-                            leaveFrom="transform opacity-100 translate-y-0"
-                            leaveTo="transform opacity-0 -translate-y-4"
-                          >
-                            <Menu.Items className="mt-2 w-full origin-top divide-y divide-gray-100 focus:outline-none">
-                              <div className="pl-4">
-                                {link.childern.map((item) => (
-                                  <Menu.Item key={item.href}>
-                                    <a
-                                      href={item.href}
-                                      className="block rounded-md px-3 py-2 text-base text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                    >
-                                      {item.name}
-                                    </a>
-                                  </Menu.Item>
-                                ))}
-                              </div>
-                            </Menu.Items>
-                          </Transition>
-                        </Menu>
+                    {links.map((link) =>
+                      link?.childern ? (
+                        <MobileLinkWithDropdown key={link.name} link={link} />
                       ) : (
-                        <li key={link.href}>
+                        <li key={link.name}>
                           <a
                             href={link.href}
                             className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900"
@@ -228,7 +225,7 @@ function Nav() {
                           </a>
                         </li>
                       )
-                    })}
+                    )}
                   </ul>
                 </div>
               </Popover.Panel>
