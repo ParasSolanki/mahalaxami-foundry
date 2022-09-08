@@ -15,10 +15,10 @@ const links = [
   {
     name: 'Products',
     childern: [
-      { name: 'Pillar / Driling Machine Column', href: '/pillar' },
+      { name: 'Pillar / Driling Machine Column', href: '/products/pillar' },
       {
         name: 'Coupling / Rolling Mill Coupling Machine Column',
-        href: '/coupling',
+        href: '/products/coupling',
       },
     ],
   },
