@@ -3,6 +3,45 @@ import MainHead from '@/components/MainHead.astro'
 import AppLayout from '@/layouts/App.astro'
 import { HomeIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
 import { Image } from '@astrojs/image/components'
+
+const images = [
+  {
+    src: import('../../assets/images/pillar-1.jpg'),
+    alt: 'pillar-1',
+    width: 500,
+    ratio: '16:12',
+  },
+  {
+    src: import('../../assets/images/pillar-2.jpg'),
+    alt: 'pillar-2',
+    width: 500,
+    ratio: '3:4',
+  },
+  {
+    src: import('../../assets/images/pillar-3.jpg'),
+    alt: 'pillar-3',
+    width: 500,
+    ratio: '16:12',
+  },
+  {
+    src: import('../../assets/images/pillar-4.jpg'),
+    alt: 'pillar-4',
+    width: 500,
+    ratio: '3:4',
+  },
+  {
+    src: import('../../assets/images/pillar-3.jpg'),
+    alt: 'pillar-3',
+    width: 500,
+    ratio: '16:12',
+  },
+  {
+    src: import('../../assets/images/pillar-3.jpg'),
+    alt: 'pillar-3',
+    width: 500,
+    ratio: '16:12',
+  },
+]
 ---
 
 <html lang="en">
@@ -17,7 +56,7 @@ import { Image } from '@astrojs/image/components'
       <div class="container mx-auto px-4 py-10">
         <ul class="flex space-x-2 items-center font-semibold text-gray-500">
           <li class="flex items-center space-x-2">
-            <a href="/" class="text-sky-400 hover:text-sky-500 w-5 h-5">
+            <a href="/" class="text-sky-600 hover:text-sky-500 w-5 h-5">
               <HomeIcon />
             </a>
             <span class="w-4 h-4 flex items-center justify-center">
@@ -38,62 +77,25 @@ import { Image } from '@astrojs/image/components'
       </section>
       <div class="container mx-auto">
         <div
-          class="grid-cols-3 p-20 space-y-2 lg:space-y-0 lg:grid lg:gap-3 lg:grid-rows-3"
+          class="px-4 py-8 sm:p-12 md:p-16 lg:p-20 gap-y-4 md:space-y-0 grid justify-center lg:gap-5 md:grid-rows-3 lg:grid-cols-3"
         >
-          <div class="w-full rounded min-w-">
-            <Image
-              src="/assets/coupling-1.jpg"
-              alt="image"
-              width={400}
-              height={400}
-              aspectRatio={16 / 9}
-            />
-          </div>
-          <div class="w-full col-span-2 row-span-2 rounded">
-            <Image
-              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-              alt="image"
-              width={400}
-              height={400}
-              aspectRatio={16 / 9}
-            />
-          </div>
-          <div class="w-full rounded">
-            <Image
-              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-              alt="image"
-              width={400}
-              height={400}
-              aspectRatio={16 / 9}
-            />
-          </div>
-          <div class="w-full rounded">
-            <Image
-              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-              alt="image"
-              width={400}
-              height={400}
-              aspectRatio={16 / 9}
-            />
-          </div>
-          <div class="w-full rounded">
-            <Image
-              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-              alt="image"
-              width={400}
-              height={400}
-              aspectRatio={16 / 9}
-            />
-          </div>
-          <div class="w-full rounded">
-            <Image
-              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-              alt="image"
-              width={400}
-              height={400}
-              aspectRatio={16 / 9}
-            />
-          </div>
+          {
+            images.map((image) => (
+              <div
+                class={`mx-auto w-full min-w-[15rem] max-w-lg  rounded border-2 border-double border-slate-600 p-3 md:mx-0 md:max-w-lg ${
+                  image.ratio === '3:4' ? 'row-span-2' : ''
+                }`}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  width={image.width}
+                  format={'jpeg'}
+                  aspectRatio={image.ratio}
+                />
+              </div>
+            ))
+          }
         </div>
       </div>
     </AppLayout>
