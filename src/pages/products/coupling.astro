@@ -1,0 +1,85 @@
+---
+import MainHead from '@/components/MainHead.astro'
+import AppLayout from '@/layouts/App.astro'
+import { HomeIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
+import { Image } from '@astrojs/image/components'
+
+const images = [
+  {
+    src: import('../../assets/images/coupling-1.jpg'),
+    alt: 'coupling-1',
+    width: 500,
+    ratio: '16:12',
+  },
+  {
+    src: import('../../assets/images/coupling-2.jpg'),
+    alt: 'coupling-2',
+    width: 500,
+    ratio: '16:12',
+  },
+  {
+    src: import('../../assets/images/coupling-3.jpg'),
+    alt: 'coupling-3',
+    width: 500,
+    ratio: '16:12',
+  },
+]
+---
+
+<html lang="en">
+  <head>
+    <MainHead
+      title="Coupling | Mahalaxmi Foundry"
+      description="Coupling / Rolling Mill Coupling"
+    />
+  </head>
+  <body>
+    <AppLayout>
+      <div class="container mx-auto px-4 py-10">
+        <ul class="flex space-x-2 items-center font-semibold text-gray-500">
+          <li class="flex items-center space-x-2">
+            <a href="/" class="text-sky-600 hover:text-sky-500 w-5 h-5">
+              <HomeIcon />
+            </a>
+            <span class="w-4 h-4 flex items-center justify-center">
+              <ChevronRightIcon />
+            </span>
+          </li>
+          <li>
+            <span>Coupling / Rolling Mill Coupling</span>
+          </li>
+        </ul>
+      </div>
+      <section>
+        <div class="container mx-auto px-4">
+          <h1 class="text-4xl md:text-5xl text-black font-bold">
+            Coupling / Rolling Mill Coupling
+          </h1>
+        </div>
+      </section>
+      <div class="container mx-auto">
+        <div
+          class="px-4 py-8 sm:p-12 md:p-16 lg:p-20 gap-y-4 md:space-y-0 grid justify-center lg:gap-5 lg:grid-cols-3"
+        >
+          {
+            images.map((image) => (
+              <div
+                class={`mx-auto w-full min-w-[15rem] max-w-lg  rounded border-2 border-double border-slate-600 p-3 md:mx-0 md:max-w-lg ${
+                  image.ratio === '3:4' ? 'row-span-2' : ''
+                }`}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  width={image.width}
+                  format={'jpeg'}
+                  aspectRatio={image.ratio}
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </AppLayout>
+  </body>
+</html>

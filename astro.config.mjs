@@ -8,5 +8,7 @@ import image from '@astrojs/image'
 export default defineConfig({
   integrations: [mdx(), tailwind(), react(), image()],
   site: 'https://parassolanki.github.io',
-  base: '/mahalaxami-foundry',
+  base: '',
 })
+
+console.log(import.meta.env)
