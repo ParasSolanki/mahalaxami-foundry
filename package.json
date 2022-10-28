@@ -9,8 +9,10 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "@astrojs/preact": "^1.0.2",
+    "@astrojs/image": "^0.6.0",
+    "@astrojs/mdx": "^0.10.0",
     "@astrojs/tailwind": "^1.0.0",
+    "@tailwindcss/typography": "^0.5.4",
     "astro": "^1.0.6",
     "daisyui": "^2.24.0",
     "prettier": "^2.7.1",
@@ -19,6 +21,10 @@
     "sass": "^1.52.2"
   },
   "dependencies": {
-    "preact": "^10.7.3"
+    "@astrojs/react": "^1.0.0",
+    "@headlessui/react": "^1.6.6",
+    "@heroicons/react": "^2.0.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

@@ -8,13 +8,11 @@ import AppLayout from '@/layouts/App.astro'
   <head>
     <MainHead title="Mahalaxmi Foundry" description="Foundry" />
     <style lang="scss">
-      $w-s: 750px;
-
       .hero {
         position: relative;
         overflow: hidden;
 
-        @media (min-width: $w-s) {
+        @media (min-width: 768px) {
           height: 45vw;
         }
       }
@@ -43,134 +41,6 @@ import AppLayout from '@/layouts/App.astro'
         mix-blend-mode: multiply;
         background-size: cover;
       }
-
-      .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 10;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        padding-left: 2rem;
-
-        @media (min-width: $w-s) {
-          padding-left: 4rem;
-        }
-      }
-
-      .title {
-        font-weight: 900;
-        font-size: var(--f-u8);
-        margin-bottom: 0.5rem;
-        margin-top: 0;
-
-        @media (min-width: $w-s) {
-          font-size: var(--f-u12);
-        }
-      }
-
-      .grid {
-        display: grid;
-        grid-gap: 2rem;
-
-        @media (min-width: 1200px) {
-          grid-template-columns: 2fr 1fr;
-        }
-      }
-
-      .sectionTitle {
-        font-weight: 700;
-        font-size: var(--f-u8);
-        margin-top: 4rem;
-        margin-bottom: 2rem;
-      }
-
-      .role {
-        position: relative;
-        display: inline-block;
-        font-weight: 900;
-        color: var(--t-bg);
-        background-color: var(--t-fg);
-        padding: 0.25em 0.5em;
-        z-index: 2;
-
-        @media (min-width: $w-s) {
-          font-size: var(--f-u3);
-        }
-
-        + .role {
-          margin-left: 1em;
-        }
-
-        &:nth-of-type(1) {
-          .invert {
-            background-color: var(--c-pink);
-          }
-        }
-
-        &:nth-of-type(2) {
-          .invert {
-            background-color: var(--c-blue);
-          }
-        }
-
-        &:nth-of-type(3) {
-          .invert {
-            background-color: var(--c-green);
-          }
-        }
-
-        &:hover {
-          .invert {
-            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-          }
-        }
-      }
-
-      .invert {
-        position: absolute;
-        color: var(--t-fg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        clip-path: polygon(0% 100%, 100% 100%, 100% 200%, 0% 200%);
-        transition: clip-path cubic-bezier(0.4, 0, 0.5, 1) 150ms;
-      }
-
-      .desc {
-        font-size: var(--f-u2);
-        margin-top: 1.5rem;
-        margin-bottom: 0;
-      }
-
-      .subtitle {
-        display: block;
-        font-weight: 400;
-        font-size: var(--f-d6);
-        letter-spacing: -0.0625em;
-      }
-
-      .bio {
-        line-height: 2;
-        margin-bottom: 2rem;
-
-        > span:first-of-type {
-          line-height: 1;
-          margin-bottom: 0.5em;
-          display: block;
-          font-weight: 700;
-          font-size: var(--f-u4);
-        }
-      }
     </style>
   </head>
   <body>
@@ -186,12 +56,33 @@ import AppLayout from '@/layouts/App.astro'
         />
         <div class="gradient"></div>
         <div class="gradient2"></div>
-        <div class="overlay">
-          <h1 class="text-5xl lg:text-8xl font-bold text-black">
-            Mahalaxmi <br /> Foundry
-          </h1>
+        <div class="absolute z-10 inset-0 flex items-center">
+          <div class="container mx-auto px-4">
+            <h1 class="text-5xl lg:text-8xl font-bold text-black">
+              Mahalaxmi <br /> Foundry
+            </h1>
+          </div>
         </div>
       </header>
+
+      <main>
+        <section class="py-20">
+          <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold">
+              Welcome to Mahalaxmi Foundry
+            </h2>
+            <div class="max-w-3xl mt-8">
+              <p class="text-lg text-gray-500">
+                Company is expertise in the production of Grey Cast Iron
+                Casting. The company is setup with latest, sophisticated &
+                infrastructured with Machineries to high precision accuracy
+                required in the process, production & development of finest
+                Castings.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
     </AppLayout>
   </body>
 </html>

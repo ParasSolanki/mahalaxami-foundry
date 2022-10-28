@@ -1,6 +1,7 @@
 ---
 import MainHead from '@/components/MainHead.astro'
 import AppLayout from '@/layouts/App.astro'
+import AboutContent from '@/content/about.mdx'
 ---
 
 <html lang="en">
@@ -9,46 +10,17 @@ import AppLayout from '@/layouts/App.astro'
       title="About | Mahalaxmi Foundry"
       description="About Jeanine White Lorem Ipsum"
     />
-    <style lang="scss">
-      .heroImg {
-        max-height: 24rem;
-        object-fit: cover;
-        overflow: hidden;
-
-        img {
-          width: 100%;
-        }
-      }
-
-      .bio {
-        font-size: var(--f-u1);
-        line-height: 2;
-      }
-    </style>
   </head>
   <body>
     <AppLayout>
-      <div class="">
-        <div class="bg-black py-32">
-          <h1 class="text-4xl lg:text-5xl font-bold text-white text-center">
-            About Mahalaxmi Foundry
-          </h1>
-        </div>
-        <div class="bio wrapper wrapper__readable mt8">
-          <p>
-            Since 1965 we are one of the leading manufacturer of C.I. casting
-            parts for machine tools as well as of rolling mill and C.I. dies for
-            vessel industries.
-          </p>
-          <p>
-            Also, we have serve municipal corporation by providing manhole
-            cover.
-          </p>
-          <p>
-            We are well known for excellence quality of casting and on time
-            delivery.
-          </p>
-          <p>Our expertise is in manufacturing of drilling machine column.</p>
+      <div class="bg-black py-32">
+        <h1 class="text-4xl lg:text-5xl font-bold text-white text-center">
+          About Mahalaxmi Foundry
+        </h1>
+      </div>
+      <div class="max-w-3xl mx-auto px-4">
+        <div class="mt-12 prose-xl">
+          <AboutContent />
         </div>
       </div>
     </AppLayout>
