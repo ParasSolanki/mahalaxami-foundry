@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import logo from '@/assets/logo.svg'
 import { Popover, Transition, Menu } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/24/solid'
+import { ChevronDownIcon } from '@heroicons/react/24/solid/esm/index.js'
 
 const links = [
   {
