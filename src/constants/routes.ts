@@ -7,4 +7,4 @@ export const ROUTES = {
   PRODUCTS_COUPLING: `${BASE_URL}/products/coupling`,
   CONTACT: `${BASE_URL}/contact`,
   ENQUIRY: `${BASE_URL}/enquiry`,
-}
+} as const
