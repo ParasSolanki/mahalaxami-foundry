@@ -1,41 +1,60 @@
 import { Fragment } from 'react'
+// @ts-ignore
 import logo from '@/assets/logo.svg'
 import { Popover, Transition, Menu } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/24/solid'
+import { ChevronDownIcon } from '@heroicons/react/24/solid/esm/index.js'
+import { ROUTES } from '@/constants/routes'
 
-const links = [
+type ParentLink = {
+  name: string
+  href: string
+  childern?: never
+}
+
+type LinkWithChildern = {
+  name: string
+  href?: never
+  childern: Array<{ name: string; href: string }>
+}
+
+type Link = ParentLink | LinkWithChildern
+
+const links: Array<Link> = [
   {
     name: 'Home',
-    href: '/',
+    href: ROUTES.HOME,
   },
   {
     name: 'About us',
-    href: '/about-us',
+    href: ROUTES.ABOUT_US,
   },
   {
     name: 'Products',
     childern: [
-      { name: 'Pillar / Driling Machine Column', href: '/products/pillar' },
+      {
+        name: 'Pillar / Driling Machine Column',
+        href: ROUTES.PRODUCTS_PILLAR,
+      },
       {
         name: 'Coupling / Rolling Mill Coupling Machine Column',
-        href: '/products/coupling',
+        href: ROUTES.PRODUCTS_COUPLING,
       },
     ],
   },
   {
     name: 'Contact',
-    href: '/contact',
+    href: ROUTES.CONTACT,
   },
   {
     name: 'Enquiry',
-    href: '/enquiry',
+    href: ROUTES.ENQUIRY,
   },
 ]
 
-const LinkWithDropdown = ({ link }) => (
-  <li className="dropdown">
+const LinkWithDropdown = ({ link }: { link: LinkWithChildern }) => (
+  <>
     <label
-      tabIndex="0"
+      tabIndex={0}
       className="0 inline-flex cursor-pointer items-center rounded text-base font-medium  text-gray-700 hover:text-sky-400 focus:text-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-white"
     >
       {link.name}
@@ -44,7 +63,7 @@ const LinkWithDropdown = ({ link }) => (
       </span>
     </label>
     <ul
-      tabIndex="0"
+      tabIndex={0}
       className="dropdown-content menu mt-5 w-64 rounded-md bg-white p-2 shadow"
     >
       {link.childern.map((linkItem) => (
@@ -59,41 +78,46 @@ const LinkWithDropdown = ({ link }) => (
         </li>
       ))}
     </ul>
-  </li>
+  </>
 )
 
-const MobileLinkWithDropdown = ({ link }) => (
-  <Menu key={link.href} as="li" className="relative block text-left">
-    <div>
-      <Menu.Button className="inline-flex w-full items-center justify-between rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900">
-        {link.name}
-        <ChevronDownIcon className="h-6 w-6 text-gray-500" aria-hidden="true" />
-      </Menu.Button>
+const MobileLinkWithDropdown = ({ link }: { link: LinkWithChildern }) => (
+  <Menu as={Fragment}>
+    <div className="relative block text-left">
+      <div>
+        <Menu.Button className="inline-flex w-full items-center justify-between rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900">
+          {link.name}
+          <ChevronDownIcon
+            className="h-6 w-6 text-gray-500"
+            aria-hidden="true"
+          />
+        </Menu.Button>
+      </div>
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 -translate-y-2"
+        enterTo="transform opacity-100 translate-y-0"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 translate-y-0"
+        leaveTo="transform opacity-0 -translate-y-2"
+      >
+        <Menu.Items className="mt-2 w-full origin-top divide-y divide-gray-100 focus:outline-none">
+          <div className="pl-4">
+            {link.childern.map((item) => (
+              <Menu.Item key={item.href}>
+                <a
+                  href={item.href}
+                  className="block rounded-md px-3 py-2 text-base text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                >
+                  {item.name}
+                </a>
+              </Menu.Item>
+            ))}
+          </div>
+        </Menu.Items>
+      </Transition>
     </div>
-    <Transition
-      as={Fragment}
-      enter="transition ease-out duration-100"
-      enterFrom="transform opacity-0 -translate-y-2"
-      enterTo="transform opacity-100 translate-y-0"
-      leave="transition ease-in duration-75"
-      leaveFrom="transform opacity-100 translate-y-0"
-      leaveTo="transform opacity-0 -translate-y-2"
-    >
-      <Menu.Items className="mt-2 w-full origin-top divide-y divide-gray-100 focus:outline-none">
-        <div className="pl-4">
-          {link.childern.map((item) => (
-            <Menu.Item key={item.href}>
-              <a
-                href={item.href}
-                className="block rounded-md px-3 py-2 text-base text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              >
-                {item.name}
-              </a>
-            </Menu.Item>
-          ))}
-        </div>
-      </Menu.Items>
-    </Transition>
   </Menu>
 )
 
@@ -111,7 +135,7 @@ function Nav() {
                 <div className="flex flex-shrink-0 flex-grow items-center lg:flex-grow-0">
                   <div className="flex w-full items-center justify-between md:w-auto">
                     <a
-                      href="/"
+                      href={ROUTES.HOME}
                       className="rounded focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-white"
                     >
                       <div className="w-36">
@@ -144,7 +168,9 @@ function Nav() {
                 <ul className="hidden md:ml-10 md:flex md:space-x-8 md:pr-4">
                   {links.map((link) =>
                     link?.childern ? (
-                      <LinkWithDropdown link={link} key={link.name} />
+                      <li key={link.name} className="dropdown">
+                        <LinkWithDropdown link={link} />
+                      </li>
                     ) : (
                       <li key={link.name}>
                         <a
@@ -214,7 +240,9 @@ function Nav() {
                   <ul className="mt-4 space-y-1 px-2 pt-2 pb-3">
                     {links.map((link) =>
                       link?.childern ? (
-                        <MobileLinkWithDropdown key={link.name} link={link} />
+                        <li key={link.name}>
+                          <MobileLinkWithDropdown link={link} />
+                        </li>
                       ) : (
                         <li key={link.name}>
                           <a
