@@ -2,34 +2,37 @@ import { Fragment } from 'react'
 import logo from '@/assets/logo.svg'
 import { Popover, Transition, Menu } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/solid/esm/index.js'
-import { BASE_URL } from '@/constants'
+import { ROUTES } from '@/constants/routes'
 
 const links = [
   {
     name: 'Home',
-    href: `${BASE_URL}/`,
+    href: ROUTES.HOME,
   },
   {
     name: 'About us',
-    href: `${BASE_URL}/about-us`,
+    href: ROUTES.ABOUT_US,
   },
   {
     name: 'Products',
     childern: [
-      { name: 'Pillar / Driling Machine Column', href: `${BASE_URL}/products/pillar` },
+      {
+        name: 'Pillar / Driling Machine Column',
+        href: ROUTES.PRODUCTS_PILLAR,
+      },
       {
         name: 'Coupling / Rolling Mill Coupling Machine Column',
-        href: `${BASE_URL}/products/coupling`,
+        href: ROUTES.PRODUCTS_COUPLING,
       },
     ],
   },
   {
     name: 'Contact',
-    href: `${BASE_URL}/contact`,
+    href: ROUTES.CONTACT,
   },
   {
     name: 'Enquiry',
-    href: `${BASE_URL}/enquiry`,
+    href: ROUTES.ENQUIRY,
   },
 ]
 

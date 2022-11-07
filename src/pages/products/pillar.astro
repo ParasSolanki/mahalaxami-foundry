@@ -1,8 +1,12 @@
 ---
 import MainHead from '@/components/MainHead.astro'
 import AppLayout from '@/layouts/App.astro'
-import { HomeIcon, ChevronRightIcon } from '@heroicons/react/24/solid/esm/index.js'
+import {
+  HomeIcon,
+  ChevronRightIcon,
+} from '@heroicons/react/24/solid/esm/index.js'
 import { Image } from '@astrojs/image/components'
+import { ROUTES } from '@/constants/routes'
 
 const images = [
   {
@@ -56,7 +60,10 @@ const images = [
       <div class="container mx-auto px-4 py-10">
         <ul class="flex space-x-2 items-center font-semibold text-gray-500">
           <li class="flex items-center space-x-2">
-            <a href="/" class="text-sky-600 hover:text-sky-500 w-5 h-5">
+            <a
+              href={ROUTES.HOME}
+              class="text-sky-600 hover:text-sky-500 w-5 h-5"
+            >
               <HomeIcon />
             </a>
             <span class="w-4 h-4 flex items-center justify-center">
